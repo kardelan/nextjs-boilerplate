@@ -17,8 +17,9 @@ export default function HeroSection() {
         transition={{ duration: 0.8 }}
         className="relative w-64 h-64 md:w-80 md:h-80 border-4 border-black rounded-full overflow-hidden bg-white flex items-center justify-center mb-8"
       >
+        {/* Updated logo to use transparent image */}
         <Image
-          src="/images/shiba-inu-logo-blue.png"
+          src="/images/bifang-logo-transparent.png"
           alt="Bifang Logo"
           width={250}
           height={250}
