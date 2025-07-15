@@ -56,7 +56,7 @@ export default function HeroSection() {
           <Image src="/images/telegram-icon.webp" alt="Telegram" width={48} height={48} />
         </Link>
         <Link
-          href="https://x.com/bifangonbase"
+          href="https://x.com/bifangonbase_"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:scale-110 transition-transform"

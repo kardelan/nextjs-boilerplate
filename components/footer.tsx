@@ -37,7 +37,7 @@ export default function Footer() {
           <Image src="/images/telegram-icon.webp" alt="Telegram" width={40} height={40} />
         </Link>
         <Link
-          href="https://x.com/bifangonbase"
+          href="https://x.com/bifangonbase_"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:scale-110 transition-transform"
