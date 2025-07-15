@@ -78,7 +78,10 @@ export default function HowToBuySection() {
         transition={{ duration: 0.8, delay: 0.6 }}
         className="flex justify-center gap-4 mt-12"
       >
-        <Button className="bg-yellow-400 text-black font-medium border-2 border-black hover:bg-yellow-500 transition-colors px-8 py-6 text-lg">
+        <Button
+          href="https://ape.store/base/0x36c71c441cd34035e1f1f84353ea2ff7edb780ef"
+          className="bg-yellow-400 text-black font-medium border-2 border-black hover:bg-yellow-500 transition-colors px-8 py-6 text-lg"
+        >
           {" "}
           {/* Changed font-bold to font-medium */}
           BUY BIFANG!

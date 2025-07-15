@@ -32,7 +32,7 @@ export default function Header() {
       <Button className="bg-yellow-400 text-black font-medium border-2 border-black hover:bg-yellow-500 transition-colors px-6 py-3">
         {" "}
         {/* Changed font-bold to font-medium */}
-        BUY BIFANG
+        <Link href="https://ape.store/base/0x36c71c441cd34035e1f1f84353ea2ff7edb780ef">BUY BIFANG</Link>
       </Button>
     </header>
   )
