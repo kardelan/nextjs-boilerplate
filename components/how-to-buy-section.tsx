@@ -13,7 +13,7 @@ export default function HowToBuySection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 0.8 }}
-        className="text-4xl md:text-5xl font-extrabold mb-12 text-black [text-shadow:_4px_4px_0_rgb(0_0_0_/_100%)] font-sans"
+        className="text-4xl md:text-5xl font-medium mb-12 text-black [text-shadow:_4px_4px_0_rgb(0_0_0_/_100%)] font-sans" /* Changed font-extrabold to font-medium */
       >
         How to buy BIFANG
       </motion.h2>
@@ -25,23 +25,28 @@ export default function HowToBuySection() {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <Card className="border-2 border-black bg-white p-6 text-left">
-            <CardContent className="p-0 space-y-6 text-lg font-medium">
+            <CardContent className="p-0 space-y-6 text-lg font-normal">
+              {" "}
+              {/* Changed font-medium to font-normal */}
               <div>
-                <h3 className="text-xl font-bold mb-2">Setting Up an ETH Wallet:</h3>
+                <h3 className="text-xl font-medium mb-2">Setting Up an ETH Wallet:</h3>{" "}
+                {/* Changed font-bold to font-medium */}
                 <p>
                   First, choose and install a Ethereum-compatible wallet such as Metamask or Trustwallet. Once
                   installed, create your wallet and ensure your private key or seed phrase is securely stored.
                 </p>
               </div>
               <div>
-                <h3 className="text-xl font-bold mb-2">Acquiring Ethereum (ETH):</h3>
+                <h3 className="text-xl font-medium mb-2">Acquiring Ethereum (ETH):</h3>{" "}
+                {/* Changed font-bold to font-medium */}
                 <p>
                   Purchase ETH from a cryptocurrency exchange like Coinbase or Binance. After purchasing, transfer the
                   ETH to your Ethereum wallet.
                 </p>
               </div>
               <div>
-                <h3 className="text-xl font-bold mb-2">Exchanging for BIFANG on Ape Store:</h3>
+                <h3 className="text-xl font-medium mb-2">Exchanging for BIFANG on Ape Store:</h3>{" "}
+                {/* Changed font-bold to font-medium */}
                 <p>
                   Visit Ape Store and connect your Ethereum wallet. Use the swap or trade feature on Ape Store to
                   exchange your ETH for BIFANG tokens.
@@ -58,7 +63,7 @@ export default function HowToBuySection() {
           className="border-2 border-black bg-white p-4 flex items-center justify-center"
         >
           <Image
-            src="/images/bifang-banner.png"
+            src="/images/bifang-banner.jpeg"
             alt="Bifang Banner"
             width={600}
             height={300}
@@ -73,7 +78,9 @@ export default function HowToBuySection() {
         transition={{ duration: 0.8, delay: 0.6 }}
         className="flex justify-center gap-4 mt-12"
       >
-        <Button className="bg-yellow-400 text-black font-bold border-2 border-black hover:bg-yellow-500 transition-colors px-8 py-6 text-lg">
+        <Button className="bg-yellow-400 text-black font-medium border-2 border-black hover:bg-yellow-500 transition-colors px-8 py-6 text-lg">
+          {" "}
+          {/* Changed font-bold to font-medium */}
           BUY BIFANG!
         </Button>
       </motion.div>
