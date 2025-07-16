@@ -18,8 +18,8 @@ const BACKGROUND_MUSIC_URL =
 
 // hanya X & Telegram
 const socialIcons = [
-  { Icon: X, href: "#", label: "X (Twitter)" },
-  { Icon: TelegramIcon, href: "#", label: "Telegram" },
+  { Icon: X, href: "https://x.com/donvarku", label: "X (Twitter)" },
+  { Icon: TelegramIcon, href: "https://t.me/donvarku", label: "Telegram" },
 ]
 
 // gambar Varku's Art (tanpa varku-art-new.avif)
@@ -311,7 +311,14 @@ export default function Page() {
           </ScrollAnimation>
           <ScrollAnimation delay={500} className="flex justify-center gap-4 md:gap-8">
             {socialIcons.map(({ Icon, href, label }, i) => (
-              <a key={label} href={href} aria-label={label} className="group relative">
+              <a
+                key={label}
+                href={href}
+                aria-label={label}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative"
+              >
                 <div className="absolute inset-0 bg-yellow-400 rounded-full scale-0 group-hover:scale-100 group-active:scale-100 transition-transform duration-300" />
                 <Icon className="relative w-8 h-8 md:w-10 md:h-10 text-white group-hover:text-black group-active:text-black transition-colors duration-300 transform group-hover:scale-110 group-active:scale-95 group-hover:rotate-12" />
               </a>
