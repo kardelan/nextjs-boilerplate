@@ -118,7 +118,11 @@ export default function Page() {
               asChild
               className="mt-4 px-8 py-4 text-xl md:text-2xl font-bold bg-yellow-400 text-black hover:bg-yellow-500 transition-colors duration-300 rounded-full shadow-lg"
             >
-              <a href="https://ape.store/" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://ape.store/base/0x1b2a21b393e96a4582f45d3c610a8d2287e4dd84"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 BUY $VARKU
               </a>
             </Button>
