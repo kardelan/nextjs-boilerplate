@@ -193,14 +193,14 @@ export default function Component() {
         <div className="w-full h-2 md:h-4 bg-yellow-400 my-12 md:my-20" />
 
         {/* Slush Section */}
-        <section className="relative flex flex-col md:flex-row items-center justify-center py-16 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 text-center md:text-right">
+        <section className="relative flex flex-col md:flex-row items-center justify-center py-20 md:py-32 lg:py-40 px-4 md:px-8 lg:px-16 text-center md:text-right">
           <ScrollAnimation className="flex-1 flex justify-center md:justify-start mb-8 md:mb-0 order-1">
             {isMobile ? (
               <InteractiveImage
                 src="/images/avjavuja-new.avif"
                 alt="Slush Can"
-                width={250}
-                height={250}
+                width={200} // Reduced size
+                height={200} // Reduced size
                 className="max-w-full h-auto"
               />
             ) : (
@@ -208,8 +208,8 @@ export default function Component() {
                 <InteractiveImage
                   src="/images/avjavuja-new.avif"
                   alt="Slush Can"
-                  width={400}
-                  height={400}
+                  width={300} // Reduced size
+                  height={300} // Reduced size
                   className="max-w-full h-auto"
                 />
               </ParallaxSection>
@@ -218,7 +218,7 @@ export default function Component() {
           <ScrollAnimation delay={200} className="flex-1 order-2">
             <AnimatedText
               text="WHEN LIFE RUGS YOU, SIP S.L.U.S.H"
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tighter hover:text-yellow-400 transition-colors duration-500 leading-tight px-2 md:px-0"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tighter hover:text-yellow-400 transition-colors duration-500 px-2 md:px-0"
             />
           </ScrollAnimation>
         </section>
