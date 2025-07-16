@@ -240,11 +240,11 @@ export default function DobbieWebsite() {
                       <span className="text-blue-300 font-bold text-2xl">SUPPLY</span>
                     </div>
                     <h3 className="text-4xl lg:text-5xl font-black text-white leading-tight">
-                      1 TRILLION TOKENS, NO CAP!
+                      1 BILLION TOKENS, NO CAP!
                     </h3>
                     <div className="text-blue-100 space-y-3 text-lg">
                       <p className="font-bold text-xl">MATH FOR NORMIES:</p>
-                      <p>• TOTAL SUPPLY: 1,000,000,000,000</p>
+                      <p>• TOTAL SUPPLY: 1,000,000,000</p>
                       <p>• VIBE LEVEL: MAXIMUM</p>
                       <p>• DOUBT LEVEL: ZERO</p>
                     </div>
@@ -253,8 +253,8 @@ export default function DobbieWebsite() {
                     <div className="relative">
                       <div className="absolute inset-0 bg-blue-400/20 rounded-full blur-2xl"></div>
                       <Image
-                        src="/images/rocket.webp"
-                        alt="Rocket"
+                        src="/images/doebby-gift.gif"
+                        alt="Dobbie Sitting"
                         width={300}
                         height={300}
                         className="relative z-10 mx-auto hover:scale-105 transition-transform duration-300"
