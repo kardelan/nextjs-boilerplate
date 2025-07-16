@@ -1,14 +1,17 @@
 "use client"
 
 import Image from "next/image"
-import { X } from "lucide-react" // Hanya X & Telegram
+import { X, Volume2, VolumeX } from "lucide-react" // Tambah ikon volume
 import { ScrollAnimation } from "@/components/scroll-animation"
 import { ParallaxSection } from "@/components/parallax-section"
 import { InteractiveImage } from "@/components/interactive-image"
 import { AnimatedText } from "@/components/animated-text"
 import { ScrollIndicator } from "@/components/scroll-indicator"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react" // Tambah useRef
 import { TelegramIcon } from "@/components/telegram-icon"
+
+const BACKGROUND_MUSIC_URL =
+  "https://nqhtxcunlgdgbqukkmtm.supabase.co/storage/v1/object/sign/kono/wwd.mp3juice.blog%20-%20(Free)%20YAKUZA%20-%20Japanese%20Hard%20Trap%20beat%202024%20(320%20KBps).mp3?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85ODZkOWMwNi04YzAxLTQ1YzEtOGU3Zi05ZWU0MDFjNDg2ZjciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrb25vL3d3ZC5tcDNqdWljZS5ibG9nIC0gKEZyZWUpIFlBS1VaQSAtIEphcGFuZXNlIEhhcmQgVHJhcCBiZWF0IDIwMjQgKDMyMCBLQnBzKS5tcDMiLCJpYXQiOjE3NTI2ODA2NDgsImV4cCI6MTc1MzI4NTQ0OH0.fknsutLCMujhjjX3h9Jcr6UmoFir_DPpgDciUGri9nI"
 
 /* ---------- DATA ---------- */
 
@@ -45,6 +48,9 @@ const topBuyers = [
 export default function Page() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isMobile, setIsMobile] = useState(false)
+  const audioRef = useRef<HTMLAudioElement>(null) // Ref untuk elemen audio
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false) // Status musik
+  const [isMusicMuted, setIsMusicMuted] = useState(true) // Status mute
 
   /* ---------- EFFECTS ---------- */
   useEffect(() => {
@@ -62,6 +68,27 @@ export default function Page() {
       window.removeEventListener("resize", checkMobile)
     }
   }, [isMobile])
+
+  // Handle play/pause/mute
+  const toggleMusic = () => {
+    if (audioRef.current) {
+      if (isMusicPlaying) {
+        audioRef.current.pause()
+        setIsMusicPlaying(false)
+      } else {
+        audioRef.current.play().catch((e) => console.error("Error playing audio:", e))
+        setIsMusicPlaying(true)
+        setIsMusicMuted(false) // Otomatis unmute saat diputar
+      }
+    }
+  }
+
+  const toggleMute = () => {
+    if (audioRef.current) {
+      audioRef.current.muted = !audioRef.current.muted
+      setIsMusicMuted(audioRef.current.muted)
+    }
+  }
 
   /* ---------- RENDER ---------- */
   return (
@@ -285,6 +312,20 @@ export default function Page() {
 
       {/* Bottom bar */}
       <div className="w-full h-2 md:h-4 bg-yellow-400" />
+
+      {/* Background Audio – tidak terlihat */}
+      <audio ref={audioRef} loop muted preload="none" className="sr-only">
+        <source src={BACKGROUND_MUSIC_URL} type="audio/mpeg" />
+      </audio>
+
+      {/* Music Control Button */}
+      <button
+        onClick={toggleMusic}
+        className="fixed bottom-4 right-4 z-50 p-3 rounded-full bg-yellow-400 text-black shadow-lg hover:bg-yellow-500 transition-colors duration-300"
+        aria-label={isMusicPlaying ? "Pause music" : "Play music"}
+      >
+        {isMusicPlaying ? <Volume2 className="w-6 h-6" /> : <VolumeX className="w-6 h-6" />}
+      </button>
     </div>
   )
 }
