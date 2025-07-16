@@ -304,7 +304,7 @@ export default function Page() {
           </ScrollAnimation>
           <ScrollAnimation delay={300}>
             <AnimatedText
-              text="JOIN THE VARKU'S NETWORK"
+              text="JOIN THE VARKU'S COMMUNITY"
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tighter mb-6 md:mb-8 mt-8"
             />
           </ScrollAnimation>
