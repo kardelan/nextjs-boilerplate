@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { TextIcon as Telegram, Youtube, Facebook } from "lucide-react" // Added Play and Info icons
+import { X, TextIcon as Telegram, Youtube, Facebook } from "lucide-react" // Added Play and Info icons
 import { ScrollAnimation } from "@/components/scroll-animation"
 import { ParallaxSection } from "@/components/parallax-section"
 import { InteractiveImage } from "@/components/interactive-image"
@@ -9,9 +9,28 @@ import { AnimatedText } from "@/components/animated-text"
 import { ScrollIndicator } from "@/components/scroll-indicator"
 import { useEffect, useState } from "react"
 
-const Page = () => {
-  const [isMobile, setIsMobile] = useState(false)
+const socialIcons = [
+  { Icon: X, href: "#", label: "X (Twitter)" }, // Changed to X icon as per original screenshot
+  { Icon: Telegram, href: "#", label: "Telegram" },
+  { Icon: Youtube, href: "#", label: "YouTube" },
+  { Icon: Facebook, href: "#", label: "Facebook" },
+]
+
+const varkuArt = [
+  "/images/varkus-art1.avif",
+  "/images/art2.avif",
+  "/images/art3.avif",
+  "/images/art4.avif",
+  "/images/art5.avif",
+  "/images/art6.avif",
+  "/images/art7.avif",
+  "/images/art8.avif",
+  "/images/varku-art-new.avif", // Mengembalikan gambar ini ke array
+]
+
+function Component() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     const checkMobile = () => {
@@ -47,24 +66,6 @@ const Page = () => {
     { name: "DPENGU", image: "/images/top-buyer-7.avif" },
     { name: "ALFA", image: "/images/top-buyer-8.avif" },
     { name: "BETA", image: "/images/top-buyer-9.avif" },
-  ]
-
-  const varkuArt = [
-    "/images/varku-art-1.avif",
-    "/images/varku-art-2.avif",
-    "/images/varku-art-3.avif",
-    "/images/varku-art-4.avif",
-    "/images/varku-art-5.avif",
-    "/images/varku-art-6.avif",
-    "/images/varku-art-7.avif",
-    "/images/varku-art-8.avif",
-    "/images/varku-art-9.avif",
-  ]
-
-  const socialIcons = [
-    { Icon: Telegram, href: "https://telegram.com", label: "Telegram" },
-    { Icon: Youtube, href: "https://youtube.com", label: "YouTube" },
-    { Icon: Facebook, href: "https://facebook.com", label: "Facebook" },
   ]
 
   // Placeholder images for trending movies/series
@@ -309,4 +310,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default Component
