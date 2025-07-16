@@ -24,6 +24,7 @@ const socialIcons = [
 
 // gambar Varku's Art (tanpa varku-art-new.avif)
 const varkuArt = [
+  "/images/photo_6323137745110813002_x.jpeg", // New image added here
   "/images/varkus-art1.avif",
   "/images/art2.avif",
   "/images/art3.avif",
