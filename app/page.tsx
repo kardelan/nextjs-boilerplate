@@ -9,9 +9,10 @@ import { AnimatedText } from "@/components/animated-text"
 import { ScrollIndicator } from "@/components/scroll-indicator"
 import { useEffect, useState, useRef } from "react" // Tambah useRef
 import { TelegramIcon } from "@/components/telegram-icon"
+import { Button } from "@/components/ui/button" // Import Button component
 
 const BACKGROUND_MUSIC_URL =
-  "https://nqhtxcunlgdgbqukkmtm.supabase.co/storage/v1/object/sign/kono/wwd.mp3juice.blog%20-%20(Free)%20YAKUZA%20-%20Japanese%20Hard%20Trap%20beat%202024%20(320%20KBps).mp3?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85ODZkOWMwNi04YzAxLTQ1YzEtOGU3Zi05ZWU0MDFjNDg2ZjciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrb25vL3d3ZC5tcDNqdWljZS5ibG9nIC0gKEZyZWUpIFlBS1VaQSAtIEphcGFuZXNlIEhhcmQgVHJhcCBiZWF0IDIwMjQgKDMyMCBLQnBzKS5tcDMiLCJpYXQiOjE3NTI2ODA2NDgsImV4cCI6MTc1MzI4NTQ0OH0.fknsutLCMujhjjX3h9Jcr6UmoFir_DPpgDciUGri9nI"
+  "https://nqhtxcunlgdgbqukkmtm.supabase.co/storage/v1/object/sign/kono/wwd.mp3juice.blog%20-%20(Free)%20YAKUZA%20-%20Japanese%20Hard%20Trap%20beat%202024%20(320%20KBps).mp3?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85ODZkOWMwNi04YzAxLTQ1YzEtOGU3Zi05ZWU0MDFjNDg2ZjciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrb25vL3d3ZC5tcDNqdWljZS5ibG9nIC0gKEZyZWUpIFlBS1VaQSAtIEphcGFuZXNlIEhhcmQgVHJhcCBiZWF0IDIwMjQgKDMyMCBLQnBzKS5tcDMiLCJpYXQiOjE3NTI2ODA2NDgsImV4cCI6MTc1MzI4NTQ4OH0.fknsutLCMujhjjX3h9Jcr6UmoFir_DPpgDciUGri9nI"
 
 /* ---------- DATA ---------- */
 
@@ -112,6 +113,14 @@ export default function Page() {
               text="DON VARKU"
               className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter leading-tight"
             />
+            <Button
+              asChild
+              className="mt-4 px-8 py-4 text-xl md:text-2xl font-bold bg-yellow-400 text-black hover:bg-yellow-500 transition-colors duration-300 rounded-full shadow-lg"
+            >
+              <a href="https://ape.store/" target="_blank" rel="noopener noreferrer">
+                BUY $VARKU
+              </a>
+            </Button>
           </ScrollAnimation>
           <ScrollAnimation
             delay={300}
