@@ -25,7 +25,6 @@ const varkuArt = [
   "/images/art6.avif",
   "/images/art7.avif",
   "/images/art8.avif",
-  "/images/varku-art-new.avif", // Mengembalikan gambar ini ke array
 ]
 
 function Component() {
