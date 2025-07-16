@@ -16,6 +16,17 @@ const socialIcons = [
   { Icon: Facebook, href: "#", label: "Facebook" },
 ]
 
+const varkuArt = [
+  "/images/varkus-art1.avif",
+  "/images/art2.avif",
+  "/images/art3.avif",
+  "/images/art4.avif",
+  "/images/art5.avif",
+  "/images/art6.avif",
+  "/images/art7.avif",
+  "/images/art8.avif",
+]
+
 export default function Component() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isMobile, setIsMobile] = useState(false)
@@ -54,17 +65,6 @@ export default function Component() {
     { name: "DPENGU", image: "/images/top-buyer-7.avif" },
     { name: "ALFA", image: "/images/top-buyer-8.avif" },
     { name: "BETA", image: "/images/top-buyer-9.avif" },
-  ]
-
-  const varkuArt = [
-    "/images/varkus-art1.avif",
-    "/images/art2.avif",
-    "/images/art3.avif",
-    "/images/art4.avif",
-    "/images/art5.avif",
-    "/images/art6.avif",
-    "/images/art7.avif",
-    "/images/art8.avif",
   ]
 
   // Placeholder images for trending movies/series
