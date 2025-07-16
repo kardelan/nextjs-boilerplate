@@ -1,352 +1,377 @@
 "use client"
 
+import { useState, useEffect } from "react"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Menu, X, ArrowUp, Twitter, Copy } from "lucide-react"
 import Image from "next/image"
-import { X, Volume2, VolumeX } from "lucide-react" // Tambah ikon volume
-import { ScrollAnimation } from "@/components/scroll-animation"
-import { ParallaxSection } from "@/components/parallax-section"
-import { InteractiveImage } from "@/components/interactive-image"
-import { AnimatedText } from "@/components/animated-text"
-import { ScrollIndicator } from "@/components/scroll-indicator"
-import { useEffect, useState, useRef } from "react" // Tambah useRef
-import { TelegramIcon } from "@/components/telegram-icon"
-import { Button } from "@/components/ui/button" // Import Button component
 
-const BACKGROUND_MUSIC_URL =
-  "https://nqhtxcunlgdgbqukkmtm.supabase.co/storage/v1/object/sign/kono/wwd.mp3juice.blog%20-%20(Free)%20YAKUZA%20-%20Japanese%20Hard%20Trap%20beat%202024%20(320%20KBps).mp3?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85ODZkOWMwNi04YzAxLTQ1YzEtOGU3Zi05ZWU0MDFjNDg2ZjciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrb25vL3d3ZC5tcDNqdWljZS5ibG9nIC0gKEZyZWUpIFlBS1VaQSAtIEphcGFuZXNlIEhhcmQgVHJhcCBiZWF0IDIwMjQgKDMyMCBLQnBzKS5tcDMiLCJpYXQiOjE3NTI2ODA2NDgsImV4cCI6MTc1MzI4NTQ4OH0.fknsutLCMujhjjX3h9Jcr6UmoFir_DPpgDciUGri9nI"
+export default function DobbieWebsite() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [showBackToTop, setShowBackToTop] = useState(false)
 
-/* ---------- DATA ---------- */
-
-// hanya X & Telegram
-const socialIcons = [
-  { Icon: X, href: "https://x.com/donvarku", label: "X (Twitter)" },
-  { Icon: TelegramIcon, href: "https://t.me/donvarku", label: "Telegram" },
-]
-
-// gambar Varku's Art (tanpa varku-art-new.avif)
-const varkuArt = [
-  "/images/photo_6323137745110813002_x.jpeg", // New image added here
-  "/images/varkus-art1.avif",
-  "/images/art2.avif",
-  "/images/art3.avif",
-  "/images/art4.avif",
-  "/images/art5.avif",
-  "/images/art6.avif",
-  "/images/art7.avif",
-  "/images/art8.avif",
-]
-
-const topBuyers = [
-  { name: "PENGU", image: "/images/top-buyer-1.avif" },
-  { name: "POLLY", image: "/images/top-buyer-2.avif" },
-  { name: "RETSBA", image: "/images/top-buyer-3.avif" },
-  { name: "ABSTER", image: "/images/top-buyer-4.avif" },
-  { name: "CHENGU", image: "/images/top-buyer-5.avif" },
-  { name: "SKIP", image: "/images/top-buyer-6.avif" },
-  { name: "DPENGU", image: "/images/top-buyer-7.avif" },
-  { name: "ALFA", image: "/images/top-buyer-8.avif" },
-  { name: "BETA", image: "/images/top-buyer-9.avif" },
-]
-
-export default function Page() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const [isMobile, setIsMobile] = useState(false)
-  const audioRef = useRef<HTMLAudioElement>(null) // Ref untuk elemen audio
-  const [isMusicPlaying, setIsMusicPlaying] = useState(false) // Status musik
-  const [isMusicMuted, setIsMusicMuted] = useState(true) // Status mute
-
-  /* ---------- EFFECTS ---------- */
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener("resize", checkMobile)
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!isMobile) setMousePosition({ x: e.clientX, y: e.clientY })
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 300)
     }
-    if (!isMobile) window.addEventListener("mousemove", handleMouseMove)
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove)
-      window.removeEventListener("resize", checkMobile)
-    }
-  }, [isMobile])
-
-  // Handle play/pause/mute
-  const toggleMusic = () => {
-    if (audioRef.current) {
-      if (isMusicPlaying) {
-        audioRef.current.pause()
-        setIsMusicPlaying(false)
-      } else {
-        audioRef.current.play().catch((e) => console.error("Error playing audio:", e))
-        setIsMusicPlaying(true)
-        setIsMusicMuted(false) // Otomatis unmute saat diputar
-      }
-    }
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text).then(() => {
+      alert("Copied to clipboard.")
+    })
   }
 
-  const toggleMute = () => {
-    if (audioRef.current) {
-      audioRef.current.muted = !audioRef.current.muted
-      setIsMusicMuted(audioRef.current.muted)
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" })
     }
+    setIsMenuOpen(false)
   }
 
-  /* ---------- RENDER ---------- */
   return (
-    <div className="flex flex-col min-h-screen bg-black text-white overflow-x-hidden">
-      {/* Cursor effect */}
-      {!isMobile && (
-        <div
-          className="fixed w-4 h-4 bg-yellow-400 rounded-full pointer-events-none z-50 mix-blend-difference transition-transform duration-100"
-          style={{ left: mousePosition.x - 8, top: mousePosition.y - 8 }}
-        />
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white">
+      {/* Navigation */}
+      <nav className="sticky top-0 z-50 bg-blue-900/95 backdrop-blur-sm border-b border-blue-600/30">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between h-20">
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/images/dobbie-logo.webp"
+                alt="Dobbie Logo"
+                width={56}
+                height={56}
+                className="rounded-full border-2 border-white/20 hover:border-white/40 transition-all"
+              />
+            </Link>
+
+            <div className="hidden md:flex items-center space-x-10">
+              <button
+                onClick={() => scrollToSection("banner")}
+                className="text-white hover:text-blue-300 transition-colors font-semibold text-lg tracking-wide"
+              >
+                HOME
+              </button>
+              <button
+                onClick={() => scrollToSection("about")}
+                className="text-white hover:text-blue-300 transition-colors font-semibold text-lg tracking-wide"
+              >
+                ABOUT US
+              </button>
+              <button
+                onClick={() => scrollToSection("tokenomics")}
+                className="text-white hover:text-blue-300 transition-colors font-semibold text-lg tracking-wide"
+              >
+                TOKENOMICS
+              </button>
+              <button
+                onClick={() => scrollToSection("contact")}
+                className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-400 hover:to-blue-500 text-white px-8 py-3 rounded-full font-semibold text-lg transition-all shadow-lg hover:shadow-xl"
+              >
+                JOIN US
+              </button>
+            </div>
+
+            <button className="md:hidden text-white" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+
+          {/* Mobile Menu */}
+          {isMenuOpen && (
+            <div className="md:hidden py-6 border-t border-blue-600/30">
+              <div className="flex flex-col space-y-4">
+                <button
+                  onClick={() => scrollToSection("banner")}
+                  className="text-left text-white hover:text-blue-300 transition-colors font-semibold py-2"
+                >
+                  HOME
+                </button>
+                <button
+                  onClick={() => scrollToSection("about")}
+                  className="text-left text-white hover:text-blue-300 transition-colors font-semibold py-2"
+                >
+                  ABOUT US
+                </button>
+                <button
+                  onClick={() => scrollToSection("tokenomics")}
+                  className="text-left text-white hover:text-blue-300 transition-colors font-semibold py-2"
+                >
+                  TOKENOMICS
+                </button>
+                <button
+                  onClick={() => scrollToSection("contact")}
+                  className="text-left bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 rounded-full font-semibold w-fit"
+                >
+                  JOIN US
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </nav>
+
+      {/* Back to Top Button */}
+      {showBackToTop && (
+        <button
+          onClick={() => scrollToSection("banner")}
+          className="fixed bottom-8 right-8 bg-blue-600 hover:bg-blue-500 text-white p-4 rounded-full transition-all z-50 shadow-lg hover:shadow-xl"
+        >
+          <ArrowUp size={20} />
+        </button>
       )}
 
-      {/* Top bar */}
-      <div className="w-full h-2 md:h-4 bg-yellow-400" />
-
-      <main className="flex-1">
-        {/* DON VARKU */}
-        <section className="relative flex flex-col md:flex-row items-center justify-center py-16 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 text-center md:text-left">
-          <ScrollAnimation className="flex-1 mb-8 md:mb-0 order-2 md:order-1">
-            <AnimatedText
-              text="DON VARKU"
-              className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter leading-tight"
-            />
-            <Button
-              asChild
-              className="mt-4 px-8 py-4 text-xl md:text-2xl font-bold bg-yellow-400 text-black hover:bg-yellow-500 transition-colors duration-300 rounded-full shadow-lg"
-            >
-              <a
-                href="https://ape.store/base/0x1b2a21b393e96a4582f45d3c610a8d2287e4dd84"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                BUY $VARKU
-              </a>
-            </Button>
-          </ScrollAnimation>
-          <ScrollAnimation
-            delay={300}
-            className="flex-1 flex justify-center md:justify-end order-1 md:order-2 mb-8 md:mb-0"
-          >
-            {isMobile ? (
-              <InteractiveImage
-                src="/images/varkus-new.avif"
-                alt="Don Varku"
-                width={300}
-                height={300}
-                className="max-w-full h-auto"
-              />
-            ) : (
-              <ParallaxSection speed={-0.2}>
-                <InteractiveImage
-                  src="/images/varkus-new.avif"
-                  alt="Don Varku"
-                  width={600}
-                  height={600}
-                  className="max-w-full h-auto"
-                />
-              </ParallaxSection>
-            )}
-          </ScrollAnimation>
-          {!isMobile && <ScrollIndicator />}
-        </section>
-
-        {/* ===== Separator ===== */}
-        <div className="w-full h-2 md:h-4 bg-yellow-400 my-12 md:my-20" />
-
-        {/* VARKU ASSASSIN */}
-        <section className="relative flex flex-col md:flex-row items-center justify-center py-16 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 text-center md:text-right">
-          <ScrollAnimation className="flex-1 flex justify-center md:justify-start mb-8 md:mb-0 order-1">
-            {isMobile ? (
-              <InteractiveImage
-                src="/images/vavakus-new.avif"
-                alt="Varku Assassin"
-                width={300}
-                height={300}
-                className="max-w-full h-auto"
-              />
-            ) : (
-              <ParallaxSection speed={0.1}>
-                <InteractiveImage
-                  src="/images/vavakus-new.avif"
-                  alt="Varku Assassin"
-                  width={600}
-                  height={600}
-                  className="max-w-full h-auto"
-                />
-              </ParallaxSection>
-            )}
-          </ScrollAnimation>
-          <ScrollAnimation delay={200} className="flex-1 order-2">
-            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold leading-tight max-w-2xl mx-auto md:mx-0 hover:text-yellow-400 transition-colors duration-500 px-2 md:px-0">
-              VARKU WAS A TOP-TIER ASSASSIN WORKING FOR A COVERT ORGANIZATION. VARKU WAS THE SHADOW BEHIND COUNTLESS
-              MISSIONS!! SWIFT, SILENT, AND UNMATCHED. HE HELD THE TITLE OF THE MOST FEARED AND ELITE OPERATIVE IN HIS
-              COUNTRY.
-            </p>
-          </ScrollAnimation>
-        </section>
-
-        {/* ===== Separator ===== */}
-        <div className="w-full h-2 md:h-4 bg-yellow-400 my-12 md:my-20" />
-
-        {/* STORY SECTION */}
-        <section className="relative flex flex-col items-center justify-center py-16 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 text-center">
-          <ScrollAnimation className="mb-8 w-full flex justify-center">
-            <InteractiveImage
-              src="/images/vavakus-3-new.avif"
-              alt="Varku Sniper"
-              width={isMobile ? 350 : 1200}
-              height={isMobile ? 200 : 675}
-              className="max-w-full h-auto mx-auto"
-            />
-          </ScrollAnimation>
-          <ScrollAnimation delay={300} className="max-w-4xl mx-auto">
-            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold leading-tight hover:text-yellow-400 transition-colors duration-500 px-2 md:px-0">
-              BUT ONE JOB CHANGED EVERYTHING. I WAS SUPPOSED TO TAKE OUT A CARTEL BOSS IN PATAGONIA. INSTEAD, I SHOT HIS
-              PET EMPEROR PENGUIN. TWICE. BY ACCIDENT. I WENT UNDERGROUND. WAY UNDERGROUND. LIKE... ANTARCTIC
-              UNDERGROUND. COLD, QUIET, FORGOTTEN. UNTIL I MET THEM. THE PENGUINS.
-            </p>
-          </ScrollAnimation>
-        </section>
-
-        {/* ===== Separator ===== */}
-        <div className="w-full h-2 md:h-4 bg-yellow-400 my-12 md:my-20" />
-
-        {/* SLUSH */}
-        <section className="relative flex flex-col items-center justify-center py-20 md:py-32 lg:py-40 px-4 md:px-8 lg:px-16 text-center">
-          <ScrollAnimation delay={200} className="max-w-4xl mx-auto">
-            <AnimatedText
-              text="WHEN LIFE RUGS YOU, SIP S.L.U.S.H"
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tighter hover:text-yellow-400 transition-colors duration-500 px-2 md:px-0"
-            />
-          </ScrollAnimation>
-        </section>
-
-        {/* ===== Separator ===== */}
-        <div className="w-full h-2 md:h-4 bg-yellow-400 my-12 md:my-20" />
-
-        {/* TOP BUYERS */}
-        <section className="py-16 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 text-center">
-          <ScrollAnimation>
-            <AnimatedText
-              text="S.L.U.S.H TOP BUYERS"
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tighter mb-10 md:mb-14"
-            />
-          </ScrollAnimation>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 md:gap-8 lg:gap-10 max-w-5xl mx-auto">
-            {topBuyers.map((buyer, i) => (
-              <ScrollAnimation key={buyer.name} delay={i * 100}>
-                <div className="flex flex-col items-center group cursor-pointer">
-                  <div className="relative overflow-hidden rounded-full mb-3 md:mb-5 transition-transform duration-300 group-hover:scale-110 group-active:scale-95">
-                    <Image
-                      src={buyer.image || "/placeholder.svg"}
-                      alt={buyer.name}
-                      width={isMobile ? 80 : 150}
-                      height={isMobile ? 80 : 150}
-                      className="object-cover transition-all duration-300 group-hover:brightness-110 w-full h-auto"
-                    />
-                    <div className="absolute inset-0 bg-yellow-400/20 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300" />
-                  </div>
-                  <p className="text-sm sm:text-base md:text-xl font-bold group-hover:text-yellow-400 group-active:text-yellow-400 transition-colors duration-300">
-                    {buyer.name}
+      {/* Hero Section */}
+      <section id="banner" className="relative py-20 lg:py-32">
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-2 gap-16 items-center max-w-7xl mx-auto">
+            {/* Hero Content */}
+            <div className="space-y-8">
+              <div className="space-y-6">
+                <h1 className="text-6xl lg:text-8xl font-black text-white leading-tight">DOBBIE</h1>
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+                  <p className="text-xl lg:text-2xl font-semibold leading-relaxed text-blue-100">
+                    LISTEN UP, INTERNET! I'M DOBBIE - THE DUGGO WHOSE HOOMAN BUILT BASE NETWORK FROM SCRATCH. THAT'S
+                    RIGHT, I'M MORE THAN JUST A GOOD BOY - I'M THE GOOD BOY OF BASE!
                   </p>
                 </div>
-              </ScrollAnimation>
-            ))}
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <Button
+                  asChild
+                  className="bg-green-600 hover:bg-green-500 text-white font-bold py-4 px-6 rounded-xl text-sm lg:text-base transition-all shadow-lg hover:shadow-xl"
+                >
+                  <Link
+                    href="https://www.datadex.me/#/swap?outputCurrency=0x37E14058582594FEB08824b81c7E5810576b5306"
+                    target="_blank"
+                  >
+                    BUY NOW
+                  </Link>
+                </Button>
+                <Button
+                  onClick={() => copyToClipboard("0x37E14058582594FEB08824b81c7E5810576b5306")}
+                  className="bg-purple-600 hover:bg-purple-500 text-white font-bold py-4 px-6 rounded-xl font-mono text-xs lg:text-sm transition-all shadow-lg hover:shadow-xl"
+                >
+                  <Copy size={16} className="mr-2" />
+                  0x37...306
+                </Button>
+              </div>
+            </div>
+
+            {/* Hero Image */}
+            <div className="flex justify-center lg:justify-end">
+              <div className="relative">
+                <div className="absolute inset-0 bg-blue-400/20 rounded-full blur-3xl scale-110"></div>
+                <Image
+                  src="/images/dobbie-cool.webp"
+                  alt="Dobbie Character"
+                  width={400}
+                  height={400}
+                  className="relative z-10 hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+            </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* ===== Separator ===== */}
-        <div className="w-full h-2 md:h-4 bg-yellow-400 my-12 md:my-20" />
+      {/* About Section */}
+      <section id="about" className="py-20 lg:py-32 bg-gradient-to-r from-blue-800 to-blue-900">
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-2 gap-16 items-center max-w-7xl mx-auto">
+            <div className="order-2 lg:order-1 text-center lg:text-left">
+              <div className="relative inline-block">
+                <div className="absolute inset-0 bg-blue-400/20 rounded-3xl blur-2xl"></div>
+                <Image
+                  src="/images/dobbie-sitting.jpeg"
+                  alt="Dobbie Sitting"
+                  width={400}
+                  height={400}
+                  className="relative z-10 rounded-3xl hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+            </div>
 
-        {/* VARKU'S ART */}
-        <section className="py-16 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 text-center">
-          <ScrollAnimation>
-            <AnimatedText
-              text="VARKU'S ART"
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tighter mb-10 md:mb-14"
-            />
-          </ScrollAnimation>
-          <div className="grid grid-cols-3 gap-6 md:gap-8 lg:gap-10 max-w-5xl mx-auto">
-            {varkuArt.map((art, i) => (
-              <ScrollAnimation key={art} delay={i * 150}>
-                <div className="group cursor-pointer">
-                  <div className="relative overflow-hidden transition-transform duration-500 group-hover:scale-105 group-active:scale-95 group-hover:rotate-2">
-                    <Image
-                      src={art || "/placeholder.svg"}
-                      alt={`Varku Art ${i + 1}`}
-                      width={isMobile ? 120 : 200}
-                      height={isMobile ? 120 : 200}
-                      className="object-cover transition-all duration-500 group-hover:brightness-110 group-hover:contrast-110 w-full h-auto"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-yellow-400/30 to-transparent opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300" />
+            <div className="order-1 lg:order-2 space-y-8">
+              <h2 className="text-5xl lg:text-6xl font-black text-center lg:text-left">DOBBIE ORIGINS</h2>
+              <div className="space-y-6 text-lg lg:text-xl leading-relaxed text-blue-100">
+                <p>
+                  YO, HUMANS! WHILE OTHER DOGS ARE BUSY BEING JUST "PETS", I'M THE CO-PILOT OF BASE NETWORK'S VISION. MY
+                  HUMAN? THE FOUNDER. MY MISSION? DISRUPTING THE CRYPTO WORLD.
+                </p>
+                <p>MY ORIGIN STORY? PICTURE THIS: DOBBIE. A TECH VISIONARY'S BEST FRIEND. ABSOLUTE LEGEND.</p>
+                <p>
+                  I'VE WATCHED MY HUMAN BUILD BASE NETWORK FROM THE GROUND UP, AND LET ME TELL YOU - WE'RE NOT HERE TO
+                  PLAY. WE'RE HERE TO REVOLUTIONIZE.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Tokenomics Section */}
+      <section id="tokenomics" className="py-20 lg:py-32">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto space-y-12">
+            <div className="text-center mb-16">
+              <h2 className="text-5xl lg:text-6xl font-black mb-4">TOKENOMICS</h2>
+              <p className="text-xl text-blue-200">Simple, Fair, and Transparent</p>
+            </div>
+
+            {/* Supply Card */}
+            <Card className="bg-white/10 backdrop-blur-sm border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-300">
+              <CardContent className="p-8 lg:p-12">
+                <div className="grid lg:grid-cols-2 gap-12 items-center">
+                  <div className="space-y-6">
+                    <div className="flex items-center gap-6">
+                      <Image
+                        src="/images/dobbie-logo.webp"
+                        alt="Dobbie Logo"
+                        width={80}
+                        height={80}
+                        className="rounded-full border-2 border-white/30"
+                      />
+                      <span className="text-blue-300 font-bold text-2xl">SUPPLY</span>
+                    </div>
+                    <h3 className="text-4xl lg:text-5xl font-black text-white leading-tight">
+                      1 TRILLION TOKENS, NO CAP!
+                    </h3>
+                    <div className="text-blue-100 space-y-3 text-lg">
+                      <p className="font-bold text-xl">MATH FOR NORMIES:</p>
+                      <p>• TOTAL SUPPLY: 1,000,000,000,000</p>
+                      <p>• VIBE LEVEL: MAXIMUM</p>
+                      <p>• DOUBT LEVEL: ZERO</p>
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-blue-400/20 rounded-full blur-2xl"></div>
+                      <Image
+                        src="/images/rocket.webp"
+                        alt="Rocket"
+                        width={300}
+                        height={300}
+                        className="relative z-10 mx-auto hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
                   </div>
                 </div>
-              </ScrollAnimation>
-            ))}
+              </CardContent>
+            </Card>
+
+            {/* Taxes Card */}
+            <Card className="bg-white/10 backdrop-blur-sm border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-300">
+              <CardContent className="p-8 lg:p-12">
+                <div className="grid lg:grid-cols-2 gap-12 items-center">
+                  <div className="text-center order-2 lg:order-1">
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-blue-400/20 rounded-full blur-2xl"></div>
+                      <Image
+                        src="/images/dobbie-diamond.webp"
+                        alt="Dobbie with Diamond"
+                        width={300}
+                        height={300}
+                        className="relative z-10 mx-auto hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-6 order-1 lg:order-2">
+                    <span className="text-blue-300 font-bold text-2xl">TAXES</span>
+                    <h3 className="text-4xl lg:text-5xl font-black text-white leading-tight">TAXES? NAH.</h3>
+                    <div className="text-blue-100 space-y-3 text-lg">
+                      <p className="font-bold text-xl">0% TAXES = 100% INNOVATION</p>
+                      <p>DID OTHER CRYPTO PROJECTS TELL YOU TAXES ARE COOL? THEY LIED.</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* ===== Separator ===== */}
-        <div className="w-full h-2 md:h-4 bg-yellow-400 my-12 md:my-20" />
-
-        {/* JOIN THE NETWORK */}
-        <section className="relative py-16 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 text-center">
-          <ScrollAnimation className="relative w-full max-w-4xl mx-auto mb-8 md:mb-12">
-            <div className="relative w-full h-auto">
-              <Image
-                src="/images/varku-art-new.avif"
-                alt="Join the Network"
-                width={1200}
-                height={675}
-                className="w-full h-auto object-contain mx-auto"
-                priority
-              />
+      {/* Contact Section */}
+      <section id="contact" className="py-20 lg:py-32 bg-gradient-to-r from-blue-900 to-blue-800">
+        <div className="container mx-auto px-4">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-5xl lg:text-6xl font-black mb-4">JOIN ME AND MY HOOMAN</h2>
             </div>
-          </ScrollAnimation>
-          <ScrollAnimation delay={300}>
-            <AnimatedText
-              text="JOIN THE VARKU'S COMMUNITY"
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tighter mb-6 md:mb-8 mt-8"
+
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div className="space-y-8 order-2 lg:order-1">
+                <h3 className="text-3xl lg:text-4xl font-bold leading-tight">
+                  DOBBIE IS READY TO GO TO MOON!! LEGGOOO.....
+                </h3>
+                <div className="space-y-6 text-lg lg:text-xl leading-relaxed text-blue-100">
+                  <p>BASE NETWORK ISN'T JUST A BLOCKCHAIN. IT'S OUR KINGDOM.</p>
+                  <p>YOU'RE NOT JUST BUYING A TOKEN. YOU'RE JOINING THE VISION OF A FOUNDER AND HIS LEGENDARY DOG.</p>
+                  <p>ARE YOU BRAVE ENOUGH TO RIDE WITH THE MOST INNOVATIVE DUO IN CRYPTO HISTORY?</p>
+                  <div className="pt-4">
+                    <p className="text-blue-200">BARK WITH PURPOSE,</p>
+                    <p className="font-bold text-blue-300 text-2xl">-DOBBIE</p>
+                  </div>
+                </div>
+
+                <div className="flex justify-center lg:justify-start space-x-8 pt-8">
+                  <Link
+                    href="https://twitter.com/"
+                    target="_blank"
+                    className="bg-white/10 backdrop-blur-sm p-4 rounded-full hover:bg-white/20 transition-all shadow-lg hover:shadow-xl"
+                  >
+                    <Twitter size={32} className="text-white" />
+                  </Link>
+                  <Link
+                    href="https://t.me/DobbieVana"
+                    target="_blank"
+                    className="bg-white/10 backdrop-blur-sm p-4 rounded-full hover:bg-white/20 transition-all shadow-lg hover:shadow-xl"
+                  >
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" className="text-white">
+                      <path d="M12 0C5.374 0 0 5.373 0 12s5.374 12 12 12 12-5.373 12-12S18.626 0 12 0zm5.568 8.16c-.169 1.858-.896 6.728-.896 6.728-.302 1.507-1.114 1.771-1.114 1.771-.633.302-1.507-.169-1.507-.169l-3.173-2.345-1.507-1.114-.633-.302c-.896-.633-.896-1.507 0-1.771l7.842-3.173c.633-.302 1.204 0 1.507.633.169.302.169.633 0 .896l-1.114 6.728s-.169.896-.633.896c-.302 0-.633-.302-.633-.302l-2.345-1.771-1.204-.896c-.302-.302-.302-.633 0-.896l4.287-3.173c.302-.302.633-.302.896 0 .302.302.302.633 0 .896z" />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+
+              <div className="text-center order-1 lg:order-2">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-blue-400/20 rounded-full blur-3xl"></div>
+                  <Image
+                    src="/images/rocket.webp"
+                    alt="Rocket to Moon"
+                    width={400}
+                    height={400}
+                    className="relative z-10 mx-auto hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-16 bg-blue-950">
+        <div className="container mx-auto px-4 text-center">
+          <div className="mb-8">
+            <Image
+              src="/images/dobbie-peace.webp"
+              alt="Dobbie Peace"
+              width={200}
+              height={200}
+              className="mx-auto rounded-full border-4 border-white/20 hover:border-white/40 transition-all"
             />
-          </ScrollAnimation>
-          <ScrollAnimation delay={500} className="flex justify-center gap-4 md:gap-8">
-            {socialIcons.map(({ Icon, href, label }, i) => (
-              <a
-                key={label}
-                href={href}
-                aria-label={label}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative"
-              >
-                <div className="absolute inset-0 bg-yellow-400 rounded-full scale-0 group-hover:scale-100 group-active:scale-100 transition-transform duration-300" />
-                <Icon className="relative w-8 h-8 md:w-10 md:h-10 text-white group-hover:text-black group-active:text-black transition-colors duration-300 transform group-hover:scale-110 group-active:scale-95 group-hover:rotate-12" />
-              </a>
-            ))}
-          </ScrollAnimation>
-        </section>
-      </main>
-
-      {/* Bottom bar */}
-      <div className="w-full h-2 md:h-4 bg-yellow-400" />
-
-      {/* Background Audio – tidak terlihat */}
-      <audio ref={audioRef} loop muted preload="none" className="sr-only">
-        <source src={BACKGROUND_MUSIC_URL} type="audio/mpeg" />
-      </audio>
-
-      {/* Music Control Button */}
-      <button
-        onClick={toggleMusic}
-        className="fixed bottom-4 right-4 z-50 p-3 rounded-full bg-yellow-400 text-black shadow-lg hover:bg-yellow-500 transition-colors duration-300"
-        aria-label={isMusicPlaying ? "Pause music" : "Play music"}
-      >
-        {isMusicPlaying ? <Volume2 className="w-6 h-6" /> : <VolumeX className="w-6 h-6" />}
-      </button>
+          </div>
+          <h1 className="text-6xl lg:text-8xl font-black text-white/80 mb-8">DOBBIE</h1>
+          <p className="text-blue-300 text-lg">© 2024 Dobbie Token. Built on Base Network with ❤️</p>
+        </div>
+      </footer>
     </div>
   )
 }
