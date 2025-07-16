@@ -1,21 +1,24 @@
 "use client"
 
 import Image from "next/image"
-import { X, TextIcon as Telegram, Youtube, Facebook } from "lucide-react" // Added Play and Info icons
+import { X } from "lucide-react" // Hanya X & Telegram
 import { ScrollAnimation } from "@/components/scroll-animation"
 import { ParallaxSection } from "@/components/parallax-section"
 import { InteractiveImage } from "@/components/interactive-image"
 import { AnimatedText } from "@/components/animated-text"
 import { ScrollIndicator } from "@/components/scroll-indicator"
 import { useEffect, useState } from "react"
+import { TelegramIcon } from "@/components/telegram-icon"
 
+/* ---------- DATA ---------- */
+
+// hanya X & Telegram
 const socialIcons = [
-  { Icon: X, href: "#", label: "X (Twitter)" }, // Changed to X icon as per original screenshot
-  { Icon: Telegram, href: "#", label: "Telegram" },
-  { Icon: Youtube, href: "#", label: "YouTube" },
-  { Icon: Facebook, href: "#", label: "Facebook" },
+  { Icon: X, href: "#", label: "X (Twitter)" },
+  { Icon: TelegramIcon, href: "#", label: "Telegram" },
 ]
 
+// gambar Varku's Art (tanpa varku-art-new.avif)
 const varkuArt = [
   "/images/varkus-art1.avif",
   "/images/art2.avif",
@@ -27,27 +30,32 @@ const varkuArt = [
   "/images/art8.avif",
 ]
 
-function Component() {
+const topBuyers = [
+  { name: "PENGU", image: "/images/top-buyer-1.avif" },
+  { name: "POLLY", image: "/images/top-buyer-2.avif" },
+  { name: "RETSBA", image: "/images/top-buyer-3.avif" },
+  { name: "ABSTER", image: "/images/top-buyer-4.avif" },
+  { name: "CHENGU", image: "/images/top-buyer-5.avif" },
+  { name: "SKIP", image: "/images/top-buyer-6.avif" },
+  { name: "DPENGU", image: "/images/top-buyer-7.avif" },
+  { name: "ALFA", image: "/images/top-buyer-8.avif" },
+  { name: "BETA", image: "/images/top-buyer-9.avif" },
+]
+
+export default function Page() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isMobile, setIsMobile] = useState(false)
 
+  /* ---------- EFFECTS ---------- */
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
     checkMobile()
     window.addEventListener("resize", checkMobile)
 
     const handleMouseMove = (e: MouseEvent) => {
-      if (!isMobile) {
-        setMousePosition({ x: e.clientX, y: e.clientY })
-      }
+      if (!isMobile) setMousePosition({ x: e.clientX, y: e.clientY })
     }
-
-    if (!isMobile) {
-      window.addEventListener("mousemove", handleMouseMove)
-    }
+    if (!isMobile) window.addEventListener("mousemove", handleMouseMove)
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove)
@@ -55,48 +63,22 @@ function Component() {
     }
   }, [isMobile])
 
-  const topBuyers = [
-    { name: "PENGU", image: "/images/top-buyer-1.avif" },
-    { name: "POLLY", image: "/images/top-buyer-2.avif" },
-    { name: "RETSBA", image: "/images/top-buyer-3.avif" },
-    { name: "ABSTER", image: "/images/top-buyer-4.avif" },
-    { name: "CHENGU", image: "/images/top-buyer-5.avif" },
-    { name: "SKIP", image: "/images/top-buyer-6.avif" },
-    { name: "DPENGU", image: "/images/top-buyer-7.avif" },
-    { name: "ALFA", image: "/images/top-buyer-8.avif" },
-    { name: "BETA", image: "/images/top-buyer-9.avif" },
-  ]
-
-  // Placeholder images for trending movies/series
-  const trendingMovies = [
-    "/placeholder.svg?height=150&width=100",
-    "/placeholder.svg?height=150&width=100",
-    "/placeholder.svg?height=150&width=100",
-    "/placeholder.svg?height=150&width=100",
-    "/placeholder.svg?height=150&width=100",
-    "/placeholder.svg?height=150&width=100",
-    "/placeholder.svg?height=150&width=100",
-    "/placeholder.svg?height=150&width=100",
-  ]
-
+  /* ---------- RENDER ---------- */
   return (
     <div className="flex flex-col min-h-screen bg-black text-white overflow-x-hidden">
-      {/* Animated cursor effect - only on desktop */}
+      {/* Cursor effect */}
       {!isMobile && (
         <div
           className="fixed w-4 h-4 bg-yellow-400 rounded-full pointer-events-none z-50 mix-blend-difference transition-transform duration-100"
-          style={{
-            left: mousePosition.x - 8,
-            top: mousePosition.y - 8,
-          }}
+          style={{ left: mousePosition.x - 8, top: mousePosition.y - 8 }}
         />
       )}
 
-      {/* Top Yellow Bar */}
+      {/* Top bar */}
       <div className="w-full h-2 md:h-4 bg-yellow-400" />
 
       <main className="flex-1">
-        {/* Don Varku Section */}
+        {/* DON VARKU */}
         <section className="relative flex flex-col md:flex-row items-center justify-center py-16 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 text-center md:text-left">
           <ScrollAnimation className="flex-1 mb-8 md:mb-0 order-2 md:order-1">
             <AnimatedText
@@ -131,10 +113,10 @@ function Component() {
           {!isMobile && <ScrollIndicator />}
         </section>
 
-        {/* Separator */}
+        {/* ===== Separator ===== */}
         <div className="w-full h-2 md:h-4 bg-yellow-400 my-12 md:my-20" />
 
-        {/* Varku Assassin Section */}
+        {/* VARKU ASSASSIN */}
         <section className="relative flex flex-col md:flex-row items-center justify-center py-16 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 text-center md:text-right">
           <ScrollAnimation className="flex-1 flex justify-center md:justify-start mb-8 md:mb-0 order-1">
             {isMobile ? (
@@ -166,14 +148,12 @@ function Component() {
           </ScrollAnimation>
         </section>
 
-        {/* Separator */}
+        {/* ===== Separator ===== */}
         <div className="w-full h-2 md:h-4 bg-yellow-400 my-12 md:my-20" />
 
-        {/* Story Section */}
+        {/* STORY SECTION */}
         <section className="relative flex flex-col items-center justify-center py-16 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 text-center">
           <ScrollAnimation className="mb-8 w-full flex justify-center">
-            {" "}
-            {/* Added flex justify-center */}
             <InteractiveImage
               src="/images/vavakus-3-new.avif"
               alt="Varku Sniper"
@@ -191,10 +171,10 @@ function Component() {
           </ScrollAnimation>
         </section>
 
-        {/* Separator */}
+        {/* ===== Separator ===== */}
         <div className="w-full h-2 md:h-4 bg-yellow-400 my-12 md:my-20" />
 
-        {/* Slush Section */}
+        {/* SLUSH */}
         <section className="relative flex flex-col items-center justify-center py-20 md:py-32 lg:py-40 px-4 md:px-8 lg:px-16 text-center">
           <ScrollAnimation delay={200} className="max-w-4xl mx-auto">
             <AnimatedText
@@ -204,10 +184,10 @@ function Component() {
           </ScrollAnimation>
         </section>
 
-        {/* Separator */}
+        {/* ===== Separator ===== */}
         <div className="w-full h-2 md:h-4 bg-yellow-400 my-12 md:my-20" />
 
-        {/* Top Buyers Section */}
+        {/* TOP BUYERS */}
         <section className="py-16 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 text-center">
           <ScrollAnimation>
             <AnimatedText
@@ -216,8 +196,8 @@ function Component() {
             />
           </ScrollAnimation>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 md:gap-8 lg:gap-10 max-w-5xl mx-auto">
-            {topBuyers.map((buyer, index) => (
-              <ScrollAnimation key={index} delay={index * 100}>
+            {topBuyers.map((buyer, i) => (
+              <ScrollAnimation key={buyer.name} delay={i * 100}>
                 <div className="flex flex-col items-center group cursor-pointer">
                   <div className="relative overflow-hidden rounded-full mb-3 md:mb-5 transition-transform duration-300 group-hover:scale-110 group-active:scale-95">
                     <Image
@@ -238,10 +218,10 @@ function Component() {
           </div>
         </section>
 
-        {/* Separator */}
+        {/* ===== Separator ===== */}
         <div className="w-full h-2 md:h-4 bg-yellow-400 my-12 md:my-20" />
 
-        {/* Varku's Art Section */}
+        {/* VARKU'S ART */}
         <section className="py-16 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 text-center">
           <ScrollAnimation>
             <AnimatedText
@@ -250,13 +230,13 @@ function Component() {
             />
           </ScrollAnimation>
           <div className="grid grid-cols-3 gap-6 md:gap-8 lg:gap-10 max-w-5xl mx-auto">
-            {varkuArt.map((art, index) => (
-              <ScrollAnimation key={index} delay={index * 150}>
+            {varkuArt.map((art, i) => (
+              <ScrollAnimation key={art} delay={i * 150}>
                 <div className="group cursor-pointer">
                   <div className="relative overflow-hidden transition-transform duration-500 group-hover:scale-105 group-active:scale-95 group-hover:rotate-2">
                     <Image
                       src={art || "/placeholder.svg"}
-                      alt={`Varku Art ${index + 1}`}
+                      alt={`Varku Art ${i + 1}`}
                       width={isMobile ? 120 : 200}
                       height={isMobile ? 120 : 200}
                       className="object-cover transition-all duration-500 group-hover:brightness-110 group-hover:contrast-110 w-full h-auto"
@@ -269,17 +249,17 @@ function Component() {
           </div>
         </section>
 
-        {/* Separator */}
+        {/* ===== Separator ===== */}
         <div className="w-full h-2 md:h-4 bg-yellow-400 my-12 md:my-20" />
 
-        {/* Join the Network Section */}
+        {/* JOIN THE NETWORK */}
         <section className="relative py-16 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 text-center">
           <ScrollAnimation className="relative w-full max-w-4xl mx-auto mb-8 md:mb-12">
             <div className="relative w-full h-auto">
               <Image
-                src="/images/varku-art-new.avif" // Changed image source
-                alt="Varku Art" // Updated alt text
-                width={1200} // Keep width/height for now, can be adjusted
+                src="/images/varku-art-new.avif"
+                alt="Join the Network"
+                width={1200}
                 height={675}
                 className="w-full h-auto object-contain mx-auto"
                 priority
@@ -293,8 +273,8 @@ function Component() {
             />
           </ScrollAnimation>
           <ScrollAnimation delay={500} className="flex justify-center gap-4 md:gap-8">
-            {socialIcons.map(({ Icon, href, label }, index) => (
-              <a key={index} href={href} aria-label={label} className="group relative">
+            {socialIcons.map(({ Icon, href, label }, i) => (
+              <a key={label} href={href} aria-label={label} className="group relative">
                 <div className="absolute inset-0 bg-yellow-400 rounded-full scale-0 group-hover:scale-100 group-active:scale-100 transition-transform duration-300" />
                 <Icon className="relative w-8 h-8 md:w-10 md:h-10 text-white group-hover:text-black group-active:text-black transition-colors duration-300 transform group-hover:scale-110 group-active:scale-95 group-hover:rotate-12" />
               </a>
@@ -303,10 +283,8 @@ function Component() {
         </section>
       </main>
 
-      {/* Bottom Yellow Bar */}
+      {/* Bottom bar */}
       <div className="w-full h-2 md:h-4 bg-yellow-400" />
     </div>
   )
 }
-
-export default Component
