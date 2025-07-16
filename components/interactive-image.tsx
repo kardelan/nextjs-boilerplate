@@ -30,9 +30,10 @@ export function InteractiveImage({ src, alt, width, height, className = "" }: In
         alt={alt}
         width={width}
         height={height}
+        // Removed w-full h-auto from here to rely on explicit width/height for Next.js Image optimization
         className={`transition-all duration-500 ${
           isHovered || isPressed ? "brightness-110 contrast-110" : "brightness-100 contrast-100"
-        } object-contain w-full h-auto`}
+        } object-contain`}
         priority={alt.includes("Netflix") || alt.includes("Don Varku")}
       />
       {(isHovered || isPressed) && (

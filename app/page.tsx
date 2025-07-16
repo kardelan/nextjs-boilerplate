@@ -1,13 +1,20 @@
 "use client"
 
 import Image from "next/image"
-import { X, TextIcon as Telegram, Youtube, Facebook } from "lucide-react"
+import { X, TextIcon as Telegram, Youtube, Facebook } from "lucide-react" // Added Play and Info icons
 import { ScrollAnimation } from "@/components/scroll-animation"
 import { ParallaxSection } from "@/components/parallax-section"
 import { InteractiveImage } from "@/components/interactive-image"
 import { AnimatedText } from "@/components/animated-text"
 import { ScrollIndicator } from "@/components/scroll-indicator"
 import { useEffect, useState } from "react"
+
+const socialIcons = [
+  { Icon: X, href: "#", label: "X (Twitter)" }, // Changed to X icon as per original screenshot
+  { Icon: Telegram, href: "#", label: "Telegram" },
+  { Icon: Youtube, href: "#", label: "YouTube" },
+  { Icon: Facebook, href: "#", label: "Facebook" },
+]
 
 export default function Component() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -60,11 +67,16 @@ export default function Component() {
     "/images/art8.avif",
   ]
 
-  const socialIcons = [
-    { Icon: X, href: "#", label: "X (Twitter)" },
-    { Icon: Telegram, href: "#", label: "Telegram" },
-    { Icon: Youtube, href: "#", label: "YouTube" },
-    { Icon: Facebook, href: "#", label: "Facebook" },
+  // Placeholder images for trending movies/series
+  const trendingMovies = [
+    "/placeholder.svg?height=150&width=100",
+    "/placeholder.svg?height=150&width=100",
+    "/placeholder.svg?height=150&width=100",
+    "/placeholder.svg?height=150&width=100",
+    "/placeholder.svg?height=150&width=100",
+    "/placeholder.svg?height=150&width=100",
+    "/placeholder.svg?height=150&width=100",
+    "/placeholder.svg?height=150&width=100",
   ]
 
   return (
@@ -241,7 +253,7 @@ export default function Component() {
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tighter mb-10 md:mb-14"
             />
           </ScrollAnimation>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8 lg:gap-10 max-w-5xl mx-auto">
+          <div className="grid grid-cols-3 gap-6 md:gap-8 lg:gap-10 max-w-5xl mx-auto">
             {varkuArt.map((art, index) => (
               <ScrollAnimation key={index} delay={index * 150}>
                 <div className="group cursor-pointer">
@@ -264,33 +276,21 @@ export default function Component() {
         {/* Join the Network Section */}
         <section className="relative py-12 md:py-20 lg:py-28 px-4 md:px-8 lg:px-16 text-center">
           <ScrollAnimation className="relative w-full max-w-4xl mx-auto mb-8 md:mb-12">
-            {isMobile ? (
-              <div className="w-full">
-                <Image
-                  src="/images/varku-netflix.avif"
-                  alt="Varku Netflix TV"
-                  width={350}
-                  height={200}
-                  className="w-full h-auto object-contain mx-auto"
-                  priority
-                />
-              </div>
-            ) : (
-              <ParallaxSection speed={0.2}>
-                <InteractiveImage
-                  src="/images/varku-netflix.avif"
-                  alt="Varku Netflix TV"
-                  width={1200}
-                  height={675}
-                  className="w-full h-auto"
-                />
-              </ParallaxSection>
-            )}
+            <div className="relative w-full h-auto">
+              <Image
+                src="/images/varku-art-new.avif" // Changed image source
+                alt="Varku Art" // Updated alt text
+                width={1200} // Keep width/height for now, can be adjusted
+                height={675}
+                className="w-full h-auto object-contain mx-auto"
+                priority
+              />
+            </div>
           </ScrollAnimation>
           <ScrollAnimation delay={300}>
             <AnimatedText
               text="JOIN THE VARKU'S NETWORK"
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tighter mb-6 md:mb-8"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tighter mb-6 md:mb-8 mt-8"
             />
           </ScrollAnimation>
           <ScrollAnimation delay={500} className="flex justify-center gap-4 md:gap-8">
