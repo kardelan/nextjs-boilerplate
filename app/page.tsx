@@ -97,7 +97,7 @@ export default function Component() {
 
       <main className="flex-1">
         {/* Don Varku Section */}
-        <section className="relative flex flex-col md:flex-row items-center justify-center py-12 md:py-20 lg:py-28 px-4 md:px-8 lg:px-16 min-h-[80vh] md:min-h-[60vh] text-center md:text-left">
+        <section className="relative flex flex-col md:flex-row items-center justify-center py-16 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 text-center md:text-left">
           <ScrollAnimation className="flex-1 mb-8 md:mb-0 order-2 md:order-1">
             <AnimatedText
               text="DON VARKU"
@@ -131,8 +131,11 @@ export default function Component() {
           {!isMobile && <ScrollIndicator />}
         </section>
 
+        {/* Separator */}
+        <div className="w-full h-2 md:h-4 bg-yellow-400 my-12 md:my-20" />
+
         {/* Varku Assassin Section */}
-        <section className="relative flex flex-col md:flex-row items-center justify-center py-12 md:py-20 lg:py-28 px-4 md:px-8 lg:px-16 min-h-[80vh] md:min-h-[60vh] text-center md:text-right">
+        <section className="relative flex flex-col md:flex-row items-center justify-center py-16 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 text-center md:text-right">
           <ScrollAnimation className="flex-1 flex justify-center md:justify-start mb-8 md:mb-0 order-1">
             {isMobile ? (
               <InteractiveImage
@@ -163,8 +166,11 @@ export default function Component() {
           </ScrollAnimation>
         </section>
 
+        {/* Separator */}
+        <div className="w-full h-2 md:h-4 bg-yellow-400 my-12 md:my-20" />
+
         {/* Story Section */}
-        <section className="relative flex flex-col items-center justify-center py-12 md:py-20 lg:py-28 px-4 md:px-8 lg:px-16 min-h-[80vh] md:min-h-[60vh] text-center">
+        <section className="relative flex flex-col items-center justify-center py-16 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 text-center">
           <ScrollAnimation className="mb-8 w-full">
             <InteractiveImage
               src="/images/vavakus-3-new.avif"
@@ -183,8 +189,11 @@ export default function Component() {
           </ScrollAnimation>
         </section>
 
+        {/* Separator */}
+        <div className="w-full h-2 md:h-4 bg-yellow-400 my-12 md:my-20" />
+
         {/* Slush Section */}
-        <section className="relative flex flex-col md:flex-row items-center justify-center py-12 md:py-20 lg:py-28 px-4 md:px-8 lg:px-16 min-h-[80vh] md:min-h-[60vh] text-center md:text-right">
+        <section className="relative flex flex-col md:flex-row items-center justify-center py-16 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 text-center md:text-right">
           <ScrollAnimation className="flex-1 flex justify-center md:justify-start mb-8 md:mb-0 order-1">
             {isMobile ? (
               <InteractiveImage
@@ -214,8 +223,11 @@ export default function Component() {
           </ScrollAnimation>
         </section>
 
+        {/* Separator */}
+        <div className="w-full h-2 md:h-4 bg-yellow-400 my-12 md:my-20" />
+
         {/* Top Buyers Section */}
-        <section className="py-12 md:py-20 lg:py-28 px-4 md:px-8 lg:px-16 text-center">
+        <section className="py-16 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 text-center">
           <ScrollAnimation>
             <AnimatedText
               text="S.L.U.S.H TOP BUYERS"
@@ -245,8 +257,11 @@ export default function Component() {
           </div>
         </section>
 
+        {/* Separator */}
+        <div className="w-full h-2 md:h-4 bg-yellow-400 my-12 md:my-20" />
+
         {/* Varku's Art Section */}
-        <section className="py-12 md:py-20 lg:py-28 px-4 md:px-8 lg:px-16 text-center">
+        <section className="py-16 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 text-center">
           <ScrollAnimation>
             <AnimatedText
               text="VARKU'S ART"
@@ -273,8 +288,11 @@ export default function Component() {
           </div>
         </section>
 
+        {/* Separator */}
+        <div className="w-full h-2 md:h-4 bg-yellow-400 my-12 md:my-20" />
+
         {/* Join the Network Section */}
-        <section className="relative py-12 md:py-20 lg:py-28 px-4 md:px-8 lg:px-16 text-center">
+        <section className="relative py-16 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 text-center">
           <ScrollAnimation className="relative w-full max-w-4xl mx-auto mb-8 md:mb-12">
             <div className="relative w-full h-auto">
               <Image
